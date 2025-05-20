@@ -1,0 +1,30 @@
+name: .NET Build and CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+      - name: 🛒 Checkout code
+        uses: actions/checkout@v3
+
+      - name: 🛠 Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: 📦 Restore dependencies
+        run: dotnet restore ./TimesheetAPI/TimesheetAPI.csproj
+
+      - name: 🧱 Build
+        run: dotnet build ./TimesheetAPI/TimesheetAPI.csproj --configuration Release --no-restore
+
+      - name: ✅ Test (skip for now if no tests)
+        run: echo "No tests available yet. Add test project to enable this step."
