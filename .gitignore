@@ -1,0 +1,52 @@
+## Ignore Visual Studio temporary files, build results, and user-specific files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+*.log
+
+## .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## NuGet
+*.nupkg
+*.snupkg
+*.nuspec
+.nuget/
+packages/
+*.symbols.nupkg
+
+## Test results
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+*.codecoverage
+
+## Resharper / Rider
+*.DotSettings.user
+.idea/
+*.sln.iml
+
+## User-specific files
+*.swp
+*.tmp
+*.bak
+*.old
+*.orig
+
+## Others
+*.DS_Store
+*.Thumbs.db
+
+## Publish folder (optional)
+publish/
+
