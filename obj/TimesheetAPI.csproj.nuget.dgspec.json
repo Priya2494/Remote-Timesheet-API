@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\PriyankaS\\Remote-Timesheet-API\\TimesheetAPI\\TimesheetAPI.csproj": {}
+    "C:\\Users\\PriyankaS\\OneDrive - IBM\\Desktop\\MyPortfolio\\TimesheetAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\PriyankaS\\Remote-Timesheet-API\\TimesheetAPI\\TimesheetAPI.csproj": {
+    "C:\\Users\\PriyankaS\\OneDrive - IBM\\Desktop\\MyPortfolio\\TimesheetAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PriyankaS\\Remote-Timesheet-API\\TimesheetAPI\\TimesheetAPI.csproj",
+        "projectUniqueName": "C:\\Users\\PriyankaS\\OneDrive - IBM\\Desktop\\MyPortfolio\\TimesheetAPI.csproj",
         "projectName": "TimesheetAPI",
-        "projectPath": "C:\\Users\\PriyankaS\\Remote-Timesheet-API\\TimesheetAPI\\TimesheetAPI.csproj",
+        "projectPath": "C:\\Users\\PriyankaS\\OneDrive - IBM\\Desktop\\MyPortfolio\\TimesheetAPI.csproj",
         "packagesPath": "C:\\Users\\PriyankaS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PriyankaS\\Remote-Timesheet-API\\TimesheetAPI\\obj\\",
+        "outputPath": "C:\\Users\\PriyankaS\\OneDrive - IBM\\Desktop\\MyPortfolio\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\PriyankaS\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,6 +40,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.5, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[8.0.16, )"
@@ -78,7 +82,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.409/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.410/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
