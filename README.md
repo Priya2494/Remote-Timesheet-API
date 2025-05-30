@@ -6,6 +6,7 @@ A clean, professional .NET 8 Web API for logging remote work hours — built wit
 
 ## 🚀 Features
 
+🔗 [Live API on Azure](https://timesheetapi-priyanka.azurewebsites.net/swagger/index.html)
 - ✅ Log, update, and delete timesheet entries
 - ✅ RESTful API using ASP.NET Core 8
 - ✅ Entity Framework Core + SQL Server (LocalDB)
