@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -6,6 +6,9 @@ using System.Security.Claims;
 using TimesheetAPI.Data;
 using System.Text;
 using TimesheetAPI.Models;
+using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,9 +45,46 @@ builder.Services.AddAuthentication(options =>
 
 // Add services
 builder.Services.AddAuthorization();
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    var policy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+    options.Filters.Add(new AuthorizeFilter(policy)); // 🔐 Applies globally
+});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new() { Title = "Timesheet API", Version = "v1" });
+
+    // 🔐 Add JWT Auth to Swagger
+    c.AddSecurityDefinition("Bearer", new()
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Enter: Bearer <your-token>"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
+});
 
 var app = builder.Build();
 
@@ -58,6 +98,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
+app.MapControllers();
 app.MapPost("/api/auth/login", (UserLogin user, IConfiguration config) =>
 {
     // TODO: Replace with your user validation logic
@@ -87,26 +128,26 @@ app.MapPost("/api/auth/login", (UserLogin user, IConfiguration config) =>
 
     return Results.Unauthorized();
 });
-app.MapGet("/api/timesheets", [Microsoft.AspNetCore.Authorization.Authorize] (DateTime? fromDate, DateTime? toDate, string? userId, ApplicationDbContext db) =>
-{
-    var query = db.TimesheetEntries.AsQueryable();
+//app.MapGet("/api/timesheets", [Microsoft.AspNetCore.Authorization.Authorize] (DateTime? fromDate, DateTime? toDate, string? userId, ApplicationDbContext db) =>
+//{
+//    var query = db.TimesheetEntries.AsQueryable();
 
-    if (fromDate.HasValue)
-    {
-        query = query.Where(t => t.Date >= fromDate.Value);
-    }
+//    if (fromDate.HasValue)
+//    {
+//        query = query.Where(t => t.Date >= fromDate.Value);
+//    }
 
-    if (toDate.HasValue)
-    {
-        query = query.Where(t => t.Date <= toDate.Value);
-    }
+//    if (toDate.HasValue)
+//    {
+//        query = query.Where(t => t.Date <= toDate.Value);
+//    }
 
-    if (!string.IsNullOrEmpty(userId))
-    {
-        query = query.Where(t => t.Id == Convert.ToInt32(userId));
-    }
+//    if (!string.IsNullOrEmpty(userId))
+//    {
+//        query = query.Where(t => t.Id == Convert.ToInt32(userId));
+//    }
 
-    return query.ToList();
-});
+//    return query.ToList();
+//});
 
 app.Run();
