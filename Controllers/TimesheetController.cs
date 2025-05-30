@@ -2,6 +2,7 @@
 using TimesheetAPI.Models;
 using TimesheetAPI.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TimesheetAPI.Controllers
 {
@@ -15,7 +16,7 @@ namespace TimesheetAPI.Controllers
         {
             _context = context;
         }
-
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TimesheetEntry>>> GetAll() =>
             await _context.TimesheetEntries.ToListAsync();
